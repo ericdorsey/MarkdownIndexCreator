@@ -1,0 +1,1 @@
+From root (and including root), automatically finds all `.md` files recursively in subdirs and creates a master `index.md`, and creates Markdown relative links inside that `index.md` for all recursively found `.md` files in subdirs.
