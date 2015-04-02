@@ -4,39 +4,38 @@ import os
 #md_files = []
 dir_to_walk = "."
 
-md_files_dict = {
-
-}
+md_files = []
+md_dict = {}
 
 def md_finder():
-    md_files = []
     for root, dirs, files in os.walk(dir_to_walk):
         files = [f for f in files if not f[0] == '.']
         dirs[:] = [d for d in dirs if not d[0] == '.']
         for i in files:
-            full_filename = os.path.join(root, i)
-            #print(root)
-            #print(i)
             if i.endswith(".md"):
-                # if root == ".":
-                #     root = "/"
-                md_files_dict[root.lstrip(".")] = i
-            print(full_filename)
-            if full_filename.endswith(".md"):
+                print("i is:", i, i.endswith(".md"), "root is:", root, root == ".")
+                full_filename = os.path.join(root, i)
                 md_files.append(full_filename.lstrip("."))
+                if root == ".":
+                    temp_root = "falalah"
+                else:
+                    temp_root = root.lstrip(".")
+                try:
+                    md_dict[temp_root].append(i)
+                except KeyError:
+                    md_dict[temp_root] = []
+                    md_dict[temp_root].append(i)
         for i in dirs:
             full_dirname = os.path.join(root, i)
             #print(full_dirname)
-    return md_files
 
-md_files = md_finder()
+md_finder()
 print("\nList:")
 md_files.sort()
 for i in md_files:
     print(i)
+
 print("\nDict:")
-for key, value in sorted(md_files_dict.items()):
+#print(md_dict)
+for key, value in sorted(md_dict.items()):
     print(key, value)
-
-
-
