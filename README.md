@@ -5,7 +5,7 @@ From the folder you run it in (and including that folder):
 
 Example:
 
-Given this folder structre and files:
+Given this folder structure and files:
 
 ```
 .
