@@ -3,14 +3,8 @@ import os
 
 # TODO: option: double space ending or \n\n ending
 
-dir_to_walk = "."
-
-md_files = []
-md_dict = {}
-
-# def make_output_dir():
-#     if not os.path.exists("./output"):
-#         os.makedirs("./output")
+dir_to_walk = "." # default to current dir
+md_dict = {} #
 
 def md_finder():
     for root, dirs, files in os.walk(dir_to_walk):
@@ -19,8 +13,6 @@ def md_finder():
         for i in files:
             if i.endswith(".md"):
                 print("i is:", i, i.endswith(".md"), "root is:", root, root == ".")
-                full_filename = os.path.join(root, i)
-                md_files.append(full_filename.lstrip("."))
                 if root == ".":
                     temp_root = "/"
                 else:
@@ -30,10 +22,6 @@ def md_finder():
                 except KeyError:
                     md_dict[temp_root] = []
                     md_dict[temp_root].append(i)
-        # for i in dirs:
-        #     full_dirname = os.path.join(root, i)
-        #     #print(full_dirname)
-
 
 def index_maker(md_dict):
     print()
@@ -41,7 +29,6 @@ def index_maker(md_dict):
         key = key.lstrip("/")
         key = "{0}/".format(key)
         print(key)
-        #format_var = None
         if len(value) == 1:
             print("length was 1")
             if key == "/":
@@ -53,12 +40,10 @@ def index_maker(md_dict):
             print(write_to_file_string)
             with open("index.md", "a") as out_file:
                     out_file.write(write_to_file_string)
-            #print()
         else:
             print("length not 1")
             for i in value:
                 if key == "/":
-                    #key = i
                     format_var = [i, "./" + i]
                 else:
                     format_var = [key + i, key + i]
@@ -66,19 +51,6 @@ def index_maker(md_dict):
                 print(write_to_file_string)
                 with open("index.md", "a") as out_file:
                     out_file.write(write_to_file_string)
-            #print()
-
-# make_output_dir()
 
 md_finder()
-# print("\nList:")
-# md_files.sort()
-# for i in md_files:
-#     print(i)
-#
-# print("\nDict:")
-# #print(md_dict)
-# for key, value in sorted(md_dict.items()):
-#     print(key, value)
-
 index_maker(md_dict)
