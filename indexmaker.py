@@ -1,7 +1,9 @@
+#!/usr/bin/env python
 from __future__ import print_function
 import os
+import argparse
 
-dir_to_walk = "." # default start in current dir
+dir_to_walk = "." # Default start in current dir
 
 md_dict = {} # all Markdown files found
 
@@ -20,6 +22,11 @@ link_ending = {
 }
 
 def md_finder():
+    """
+    Recursively searches directory and subdirectories finding
+    any files that match extensions in md_extensions
+    :return:
+    """
     for root, dirs, files in os.walk(dir_to_walk):
         files = [f for f in files if not f[0] == '.']
         dirs[:] = [d for d in dirs if not d[0] == '.']
@@ -68,5 +75,22 @@ def index_maker(md_dict, link_ending):
                     out_file.write(write_to_file_string)
         print()
 
-md_finder()
-index_maker(md_dict, link_ending[2])
+
+def main(link_ending, single=False):
+    if single == True:
+        link_ending = link_ending[1]
+    else:
+        link_ending = link_ending[2]
+    md_finder()
+    index_maker(md_dict, link_ending)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="IndexMaker")
+    parser.add_argument("-single", "-s",
+                        help="use single line break after links",
+                        required=False,
+                        action="store_true"
+                        )
+    args = parser.parse_args()
+    main(link_ending, single=args.single)
