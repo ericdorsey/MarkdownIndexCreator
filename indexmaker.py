@@ -3,8 +3,12 @@ import os
 
 # TODO: option: double space ending or \n\n ending
 
-dir_to_walk = "." # default to current dir
-md_dict = {} #
+dir_to_walk = "." # default start in current dir
+md_dict = {} # all .md files found and their root folder
+link_ending = {
+    1: "  \n",
+    2: "\n\n"
+}
 
 def md_finder():
     for root, dirs, files in os.walk(dir_to_walk):
@@ -12,7 +16,6 @@ def md_finder():
         dirs[:] = [d for d in dirs if not d[0] == '.']
         for i in files:
             if i.endswith(".md"):
-                print("i is:", i, i.endswith(".md"), "root is:", root, root == ".")
                 if root == ".":
                     temp_root = "/"
                 else:
@@ -23,34 +26,34 @@ def md_finder():
                     md_dict[temp_root] = []
                     md_dict[temp_root].append(i)
 
-def index_maker(md_dict):
-    print()
+def index_maker(md_dict, link_ending):
+    print(repr(link_ending))
     for key, value in sorted(md_dict.items()):
         key = key.lstrip("/")
         key = "{0}/".format(key)
         print(key)
         if len(value) == 1:
-            print("length was 1")
             if key == "/":
-                key = value[0]
-                format_var = [value[0], "./" + value[0]]
+                format_var = [value[0], "./{0}".format(value[0])]
             else:
                 format_var = [key + value[0], key + value[0]]
-            write_to_file_string = "[{0}]({1})\n\n".format(format_var[0], format_var[1])
-            print(write_to_file_string)
+            write_to_file_string = "[{0}]({1}){2}".\
+                format(format_var[0], format_var[1], link_ending)
+            print(write_to_file_string.rstrip(link_ending))
             with open("index.md", "a") as out_file:
                     out_file.write(write_to_file_string)
         else:
-            print("length not 1")
             for i in value:
                 if key == "/":
-                    format_var = [i, "./" + i]
+                    format_var = [i, "./{0}".format(i)]
                 else:
                     format_var = [key + i, key + i]
-                write_to_file_string = "[{0}]({1})\n\n".format(format_var[0], format_var[1])
-                print(write_to_file_string)
+                write_to_file_string = "[{0}]({1}){2}".\
+                    format(format_var[0], format_var[1], link_ending)
+                print(write_to_file_string.rstrip(link_ending))
                 with open("index.md", "a") as out_file:
                     out_file.write(write_to_file_string)
+        print()
 
 md_finder()
-index_maker(md_dict)
+index_maker(md_dict, link_ending[2])

@@ -9,45 +9,31 @@ Given this folder structure and files:
 
 ```
 .
+├── LICENSE.txt
 ├── README.md
-├── derp
-│   ├── derp.md
-│   ├── derp.txt
-│   └── derp_sub
-│       ├── blah
-│       │   └── okay.md
-│       ├── huh.md
-│       └── stay.md
-├── dr_evil
-│   └── okaytestfolder_go
-│       └── another.md
-├── foo.md
+├── example_dir1
+│   ├── another_dir1.md
+│   └── dir1.md
+├── example_dir2
+│   └── dir2_subdir
+│       └── subdir2.md
+├── index.md
 ├── indexmaker.py
-└── test123
-    ├── second.md
-    ├── test123.md
-    └── test123.txt
+└── root_md.md
 ```
 
 Generates this `index.md`:
 
 ```
-[foo.md](./foo.md)
-
 [README.md](./README.md)
 
-[derp/derp.md](derp/derp.md)
+[root_md.md](./root_md.md)
 
-[derp/derp_sub/huh.md](derp/derp_sub/huh.md)
+[example_dir1/another_dir1.md](example_dir1/another_dir1.md)
 
-[derp/derp_sub/stay.md](derp/derp_sub/stay.md)
+[example_dir1/dir1.md](example_dir1/dir1.md)
 
-[derp/derp_sub/blah/okay.md](derp/derp_sub/blah/okay.md)
+[example_dir2/dir2_subdir/subdir2.md](example_dir2/dir2_subdir/subdir2.md)
 
-[dr_evil/okaytestfolder_go/another.md](dr_evil/okaytestfolder_go/another.md)
-
-[test123/second.md](test123/second.md)
-
-[test123/test123.md](test123/test123.md)
 ```
 
