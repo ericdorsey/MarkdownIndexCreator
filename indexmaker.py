@@ -15,7 +15,7 @@ def md_finder():
         files = [f for f in files if not f[0] == '.']
         dirs[:] = [d for d in dirs if not d[0] == '.']
         for i in files:
-            if i.endswith(".md"):
+            if i.endswith(".md") and i != "index.md":
                 if root == ".":
                     temp_root = "/"
                 else:
@@ -27,7 +27,7 @@ def md_finder():
                     md_dict[temp_root].append(i)
 
 def index_maker(md_dict, link_ending):
-    print(repr(link_ending))
+    print("Markdown files found:")
     for key, value in sorted(md_dict.items()):
         key = key.lstrip("/")
         key = "{0}/".format(key)
