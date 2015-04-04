@@ -15,7 +15,9 @@ def md_finder():
         files = [f for f in files if not f[0] == '.']
         dirs[:] = [d for d in dirs if not d[0] == '.']
         for i in files:
-            if i.endswith(".md") and i != "index.md":
+            if i == "index.md":
+                os.rename("index.md", "index_old.md")
+            if i.endswith(".md"):# and i != "index.md":
                 if root == ".":
                     temp_root = "/"
                 else:
