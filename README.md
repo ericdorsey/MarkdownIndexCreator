@@ -1,12 +1,12 @@
 From the folder you run it in:
 
-* Finds all `.md` files in current folder (folder it was run from)
-* Recursively finds all `.md` files in subdirs 
-* Creates `index.md`, and adds Markdown relative links inside that `index.md` for all  found `.md` files.
+* Finds all Markdown files in current folder (folder it was run from)
+* Recursively finds all Markdown files in subdirs 
+* Creates `index.md`, and adds Markdown relative links inside that `index.md` for all found Markdown files.
 
-Example:
+Supported file extensions: `.markdown`, `.mdown`, `.mkdn`, `.md`, `.mkd`, `.mdwn`
 
-Given this folder structure and files:
+Example; given this folder structure and files:
 
 ```
 .
@@ -38,5 +38,8 @@ Generates this `index.md`:
 
 ```
 
-Note the script doesn't add a link for itself, ie, no link is created for `index.md`. In the scenario above `indexmaker.py` had previously been run so there was already a prior `index.md` in the root of the folder.
+If an existing `index.md` is found it is renamed `index_old.md`
+
+Note the script doesn't add a link for itself, ie, no link is created for `index.md` or `index_old.md`. In the scenario above `indexmaker.py` had previously been run so there was already a prior `index.md` in the root of the folder.
+
 
