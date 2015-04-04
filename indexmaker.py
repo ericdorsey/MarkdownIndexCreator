@@ -1,10 +1,19 @@
 from __future__ import print_function
 import os
 
-# TODO: option: double space ending or \n\n ending
-
 dir_to_walk = "." # default start in current dir
-md_dict = {} # all .md files found and their root folder
+
+md_dict = {} # all Markdown files found
+
+md_extensions = [
+    "markdown",
+    "mdown",
+    "mkdn",
+    "md",
+    "mkd",
+    "mdwn"
+]
+
 link_ending = {
     1: "  \n",
     2: "\n\n"
@@ -17,19 +26,21 @@ def md_finder():
         for i in files:
             if i == "index.md":
                 os.rename("index.md", "index_old.md")
-            if i.endswith(".md"):# and i != "index.md":
-                if root == ".":
-                    temp_root = "/"
-                else:
-                    temp_root = root.lstrip(".")
-                try:
-                    md_dict[temp_root].append(i)
-                except KeyError:
-                    md_dict[temp_root] = []
-                    md_dict[temp_root].append(i)
+            if i != "index.md" and i != "index_old.md":
+                extension = i.split(".")[1]
+                if extension in md_extensions:
+                    if root == ".":
+                        temp_root = "/"
+                    else:
+                        temp_root = root.lstrip(".")
+                    try:
+                        md_dict[temp_root].append(i)
+                    except KeyError:
+                        md_dict[temp_root] = []
+                        md_dict[temp_root].append(i)
 
 def index_maker(md_dict, link_ending):
-    print("Markdown files found:")
+    print("\nMarkdown files found:\n")
     for key, value in sorted(md_dict.items()):
         key = key.lstrip("/")
         key = "{0}/".format(key)
