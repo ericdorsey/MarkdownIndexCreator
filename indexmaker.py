@@ -70,6 +70,19 @@ def md_finder():
 
 
 def index_maker(md_dict, link_ending, interactive):
+
+
+    def write_to_screen_and_index(link_ending, interactive):
+        if interactive is True:
+            custom_label = custom_labeler(format_var[1])
+            format_var[0] = custom_label
+        write_to_file_string = "[{0}]({1}){2}".\
+            format(format_var[0], format_var[1], link_ending)
+        print(write_to_file_string.rstrip(link_ending))
+        with open("index.md", "a") as out_file:
+            out_file.write(write_to_file_string)
+        print("")
+
     print("\nReviewing Markdown files found:")
     for key, value in sorted(md_dict.items()):
         key = key.lstrip("/")
@@ -80,31 +93,33 @@ def index_maker(md_dict, link_ending, interactive):
                 format_var = [value[0], "./{0}".format(value[0])]
             else:
                 format_var = [key + value[0], key + value[0]]
-            if interactive is True:
-                custom_label = custom_labeler(format_var[1])
-                format_var[0] = custom_label
-            write_to_file_string = "[{0}]({1}){2}".\
-                format(format_var[0], format_var[1], link_ending)
-            print(write_to_file_string.rstrip(link_ending))
-            with open("index.md", "a") as out_file:
-                    out_file.write(write_to_file_string)
-            print("")
+            # if interactive is True:
+            #     custom_label = custom_labeler(format_var[1])
+            #     format_var[0] = custom_label
+            # write_to_file_string = "[{0}]({1}){2}".\
+            #     format(format_var[0], format_var[1], link_ending)
+            # print(write_to_file_string.rstrip(link_ending))
+            # with open("index.md", "a") as out_file:
+            #         out_file.write(write_to_file_string)
+            # print("")
+            write_to_screen_and_index(link_ending, interactive)
         else:
             for i in value:
                 if key == "/":
                     format_var = [i, "./{0}".format(i)]
                 else:
                     format_var = [key + i, key + i]
-                if interactive is True:
-                    custom_label = custom_labeler(format_var[1])
-                    format_var[0] = custom_label
-                write_to_file_string = "[{0}]({1}){2}".\
-                    format(format_var[0], format_var[1], link_ending)
-                print(write_to_file_string.rstrip(link_ending))
-                with open("index.md", "a") as out_file:
-                    out_file.write(write_to_file_string)
-                print("")
 
+                # if interactive is True:
+                #     custom_label = custom_labeler(format_var[1])
+                #     format_var[0] = custom_label
+                # write_to_file_string = "[{0}]({1}){2}".\
+                #     format(format_var[0], format_var[1], link_ending)
+                # print(write_to_file_string.rstrip(link_ending))
+                # with open("index.md", "a") as out_file:
+                #     out_file.write(write_to_file_string)
+                # print("")
+                write_to_screen_and_index(link_ending, interactive)
 
 def main(link_ending, single=False, interactive=False):
     if single == True:
