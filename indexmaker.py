@@ -2,6 +2,7 @@
 from __future__ import print_function
 import os
 import argparse
+import shutil
 
 # Python 3 compatibility; override builtin
 try:
@@ -54,7 +55,8 @@ def md_finder():
         dirs[:] = [d for d in dirs if not d[0] == '.']
         for i in files:
             if i == "index.md":
-                os.rename("index.md", "index_old.md")
+                #os.rename("index.md", "index_old.md")
+                shutil.move("index.md", "index_old.md")
             if i != "index.md" and i != "index_old.md":
                 extension = i.split(".")[1]
                 if extension in md_extensions:
